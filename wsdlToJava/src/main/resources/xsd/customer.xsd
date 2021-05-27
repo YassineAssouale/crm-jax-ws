@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://m2i/crm/soap"
+	xmlns:tns="http://m2i/crm/soap"
+	elementFormDefault="qualified">
+
+	<xs:simpleType name="CustomerId">
+		<xs:restriction base="xs:string">
+			<xs:length value="7" />
+			<xs:pattern value="E[0-9]{7}" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="CustomerInfo">
+		<xs:sequence>
+			<xs:element name="cid" type="tns:CustomerId" minOccurs="1"
+				nillable="false" />
+			<xs:element name="firstname" type="xs:string"
+				minOccurs="1" nillable="false" />
+			<xs:element name="lastname" type="xs:string" minOccurs="1"
+				nillable="false" />
+			<xs:element name="company" type="xs:string" minOccurs="0"
+				nillable="false" />
+			<xs:element name="mail" type="xs:string" minOccurs="0"
+				nillable="false" />
+			<xs:element name="phone" type="xs:string" minOccurs="0"
+				nillable="false" />
+			<xs:element name="mobile" type="xs:string" minOccurs="0"
+				nillable="false" />
+			<xs:element name="notes" type="xs:string" minOccurs="0"
+				nillable="false" />
+			<xs:element name="active" type="xs:boolean" minOccurs="1"
+				nillable="false" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="CustomerData">
+		<xs:sequence>
+			<xs:element name="firstname" type="xs:string"
+				minOccurs="1" nillable="false" />
+			<xs:element name="lastname" type="xs:string" minOccurs="1"
+				nillable="false" />
+			<xs:element name="company" type="xs:string" minOccurs="1"
+				nillable="false" />
+			<xs:element name="mail" type="xs:string" minOccurs="1"
+				nillable="false" />
+			<xs:element name="phone" type="xs:string" minOccurs="1"
+				nillable="false" />
+			<xs:element name="mobile" type="xs:string" minOccurs="0"
+				nillable="false" />
+			<xs:element name="notes" type="xs:string" minOccurs="0"
+				nillable="false" />
+			<xs:element name="active" type="xs:boolean" minOccurs="1"
+				nillable="false" />
+		</xs:sequence>
+	</xs:complexType>
+	
+
+	<xs:complexType name="CustomerInfoWrapper">
+		<xs:sequence>
+			<xs:element name="customerInfo" type="tns:CustomerInfo"
+				minOccurs="0" maxOccurs="unbounded" nillable="false" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="CustomerIdWrapper">
+		<xs:sequence>
+			<xs:element name="cid" type="tns:CustomerId" minOccurs="0"
+				maxOccurs="unbounded" nillable="false" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="CustomerWrapper">
+		<xs:sequence>
+			<xs:element name="customerData" type="tns:CustomerData" minOccurs="0"
+				maxOccurs="unbounded" nillable="false" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="UserDefinedFault">
+		<xs:sequence>
+			<xs:element name="message" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="UserDefinedFault"
+		type="tns:UserDefinedFault" />
+
+
+	<xs:element name="CustomerIdList"
+		type="tns:CustomerIdWrapper" />
+	<xs:element name="CustomerInfoList"
+		type="tns:CustomerInfoWrapper" />
+		
+	<xs:element name="CreateCustomer" type="tns:CustomerWrapper" />
+	
+	<xs:element name="CreatedCustomerId" type="tns:CustomerIdWrapper" />
+
+</xs:schema>

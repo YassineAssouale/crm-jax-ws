@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="Customer"
+	targetNamespace="http://m2i/crm/soap"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://m2i/crm/soap"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import namespace="http://m2i/crm/soap"
+				schemaLocation="../xsd/customer.xsd" />
+		</xsd:schema>
+	</wsdl:types>
+
+	<wsdl:message name="customerRequest">
+		<wsdl:part element="tns:CustomerIdList"
+			name="customerIdList" />
+	</wsdl:message>
+
+	<wsdl:message name="customerResponse">
+		<wsdl:part element="tns:CustomerInfoList"
+			name="customerInfoList" />
+	</wsdl:message>
+	
+	<wsdl:message name="createCustomerRequest">
+		<wsdl:part element="tns:CreateCustomer"
+			name="createCustomer" />
+	</wsdl:message>
+	
+	<wsdl:message name="createCustomerResponse">
+		<wsdl:part element="tns:CreatedCustomerId"
+			name="customerId" />
+	</wsdl:message>
+
+	<!-- Fault message -->
+	<wsdl:message name="UserDefinedException">
+		<wsdl:part name="fault" element="tns:UserDefinedFault" />
+	</wsdl:message>
+
+	<wsdl:portType name="customerService">
+		<wsdl:operation name="customer">
+			<wsdl:input message="tns:customerRequest" />
+			<wsdl:output message="tns:customerResponse" />
+			<wsdl:fault name="UserDefinedFault"
+				message="tns:UserDefinedException" />
+		</wsdl:operation>
+		<wsdl:operation name="createCustomer">
+			<wsdl:input message="tns:createCustomerRequest" />
+			<wsdl:output message="tns:createCustomerResponse" />
+			<wsdl:fault name="UserDefinedFault"
+				message="tns:UserDefinedException" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<wsdl:binding name="customerBinding"
+		type="tns:customerService">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="customer">
+			<soap:operation
+				soapAction="http://m2i/crm/soap/customer" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="UserDefinedFault">
+				<soap:fault name="UserDefinedFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+		<wsdl:operation name="createCustomer">
+			<soap:operation
+				soapAction="http://m2i/crm/soap/createCustomer" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="UserDefinedFault">
+				<soap:fault name="UserDefinedFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<wsdl:service name="customerService">
+		<wsdl:port binding="tns:customerBinding"
+			name="customerPort">
+			<soap:address location="http://localhost" />
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>

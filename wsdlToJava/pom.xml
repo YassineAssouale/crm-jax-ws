@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>fr.m2i.crm.soap</groupId>
+        <artifactId>crm-jax-ws</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>wsdlToJava</artifactId>
+    <build>
+	        <plugins>
+	            <plugin>
+	                <groupId>com.sun.xml.ws</groupId>
+					<artifactId>jaxws-maven-plugin</artifactId>
+					<version>2.3.2</version>
+	                <executions>
+	                    <execution>
+	                        <id>customer_wsdl</id>
+	                        <goals>
+	                            <goal>wsimport</goal>
+	                        </goals>
+	                        <configuration>
+	                            <wsdlDirectory>${basedir}/src/main/resources/wsdl</wsdlDirectory>
+	                            <wsdlUrls>
+	                                <wsdlUrl>${basedir}/src/main/resources/wsdl/customerService.wsdl</wsdlUrl>
+	                            </wsdlUrls>
+	                            <packageName>fr.m2i.crm.soap.service.customer.generated</packageName>
+	                            <keep>true</keep>
+	                            <sourceDestDir>${basedir}/src/main/java</sourceDestDir>
+	                        </configuration>
+	                    </execution>
+	                </executions>
+	            </plugin>
+	        </plugins>
+    </build>
+</project>
